@@ -30,18 +30,20 @@ func main() {
 }
 
 func insereOrd(v *[M]int, n *int, novoValor int) {
-	if *n >= M {
+	if *n == M {
 		fmt.Println("Overflow")
 		return
 	}
 
-	pos := *n
-	for pos > 0 && v[pos-1] > novoValor {
-		v[pos] = v[pos-1]
-		pos--
+	pos := novoValor
+	for i := 0; i < *n; i++ {
+		if v[i] == novoValor {
+			fmt.Println("Valor já existente")
+		} else if v[i] > pos {
+			v[i], pos = pos, v[i]
+		}
 	}
-
-	v[pos] = novoValor
+	fmt.Printf("Inserindo o valor %d\n", novoValor)
+	v[*n] = pos
 	*n++
-	fmt.Printf("Inserido %d\n", novoValor)
 }
